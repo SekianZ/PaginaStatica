@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Estética - Salón de Belleza</title>
+    <style>
+        :root {
+            --orange: #ff7b25;
+            --light-orange: #ffab76;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+        }
+        
+        header {
+            background-color: var(--orange);
+            color: var(--white);
+            padding: 1rem;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--light-gray);
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(255, 123, 37, 0.8), rgba(255, 123, 37, 0.6)), url('/api/placeholder/1200/800') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            padding: 0 1rem;
+            padding-top: 80px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            background-color: var(--white);
+            color: var(--orange);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: var(--light-gray);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        section {
+            padding: 5rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: var(--orange);
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+        }
+        
+        .services {
+            background-color: var(--light-gray);
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 123, 37, 0.2);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-color: var(--light-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            color: var(--orange);
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-content p {
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--orange);
+            font-size: 1.2rem;
+        }
+        
+        .about {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            background-color: var(--light-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 3rem;
+        }
+        
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 2rem;
+        }
+        
+        .about-content h2 {
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+        
+        .about-content p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonials {
+            background-color: var(--light-gray);
+        }
+        
+        .testimonials-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .testimonial.active {
+            display: block;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--orange);
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-nav button {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .testimonial-nav button:hover {
+            background-color: var(--light-orange);
+        }
+        
+        .contact {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input, textarea {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-btn {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .form-btn:hover {
+            background-color: var(--light-orange);
+        }
+        
+        footer {
+            background-color: var(--orange);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light-gray);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--white);
+            color: var(--orange);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--light-gray);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Bella Estética</div>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#testimonios">Testimonios</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+    
+    <section class="hero" id="inicio">
+        <h1>Belleza y Bienestar a tu Alcance</h1>
+        <p>En Bella Estética nos dedicamos a resaltar tu belleza natural con los tratamientos más innovadores y efectivos del mercado.</p>
+        <a href="#contacto" class="btn">Reserva tu Cita</a>
+    </section>
+    
+    <section class="services" id="servicios">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="services-container">
+            <div class="service-card">
+                <div class="service-img">✂️</div>
+                <div class="service-content">
+                    <h3>Corte y Peinado</h3>
+                    <p>Descubre un nuevo look con nuestros cortes personalizados para realzar tus facciones y estilo único.</p>
+                    <p class="price">Desde $25</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-img">💅</div>
+                <div class="service-content">
+                    <h3>Manicure y Pedicure</h3>
+                    <p>Cuida tus manos y pies con nuestros tratamientos de belleza y salud para uñas.</p>
+                    <p class="price">Desde $20</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-img">💆‍♀️</div>
+                <div class="service-content">
+                    <h3>Tratamientos Faciales</h3>
+                    <p>Rejuvenece tu piel con nuestros tratamientos faciales diseñados para hidratar, limpiar y revitalizar.</p>
+                    <p class="price">Desde $40</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-img">🎨</div>
+                <div class="service-content">
+                    <h3>Coloración</h3>
+                    <p>Transforma tu cabello con nuestras técnicas de coloración profesional que cuidan y protegen.</p>
+                    <p class="price">Desde $35</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="nosotros">
+        <h2 class="section-title">Sobre Nosotros</h2>
+        <div class="about">
+            <div class="about-img">🧖‍♀️</div>
+            <div class="about-content">
+                <h2>La Belleza es Nuestra Pasión</h2>
+                <p>Bella Estética nació en 2015 con la visión de crear un espacio donde cada cliente pueda sentirse especial y renovado. Contamos con profesionales capacitados y productos de primera calidad para garantizar los mejores resultados.</p>
+                <p>Nos caracterizamos por nuestra atención personalizada y nuestro compromiso con la satisfacción de cada cliente. Creemos que la belleza exterior refleja el bienestar interior.</p>
+                <a href="#contacto" class="btn">Conoce Más</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials" id="testimonios">
+        <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
+        <div class="testimonials-container">
+            <div class="testimonial active">
+                <p class="testimonial-text">"Desde mi primera visita quedé encantada con el servicio. Los profesionales son muy amables y los resultados superaron mis expectativas. ¡Totalmente recomendado!"</p>
+                <p class="testimonial-author">- María García</p>
+            </div>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">"El mejor salón de belleza al que he ido. El ambiente es muy acogedor y el trabajo es impecable. Mi cabello nunca había lucido tan bien."</p>
+                <p class="testimonial-author">- Laura Martínez</p>
+            </div>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">"Los tratamientos faciales son increíbles. Mi piel luce radiante y me siento rejuvenecida. El personal es muy profesional y atento."</p>
+                <p class="testimonial-author">- Carlos Rodríguez</p>
+            </div>
+            
+            <div class="testimonial-nav">
+                <button id="prev-testimonial">❮</button>
+                <button id="next-testimonial">❯</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contacto">
+        <h2 class="section-title">Contacto</h2>
+        <div class="contact">
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="service">Servicio de Interés</label>
+                    <select id="service" name="service">
+                        <option value="">Selecciona un servicio</option>
+                        <option value="corte">Corte y Peinado</option>
+                        <option value="manicure">Manicure y Pedicure</option>
+                        <option value="facial">Tratamientos Faciales</option>
+                        <option value="color">Coloración</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" name="message"></textarea>
+                </div>
+                
+                <button type="submit" class="form-btn">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="logo">Bella Estética</div>
+        
+        <div class="footer-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#testimonios">Testimonios</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">i</a>
+            <a href="#" aria-label="Twitter">t</a>
+            <a href="#" aria-label="WhatsApp">w</a>
+        </div>
+        
+        <p>Dirección: Av. Principal 123, Ciudad</p>
+        <p>Teléfono: (123) 456-7890</p>
+        <p>Email: info@bellaestética.com</p>
+        
+        <p class="copyright">© 2025 Bella Estética. Todos los derechos reservados.</p>
+    </footer>
+    
+    <script>
+        // Navegación suave al hacer clic en los enlaces
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Carrusel de testimonios
+        const testimonials = document.querySelectorAll('.testimonial');
+        const prevBtn = document.getElementById('prev-testimonial');
+        const nextBtn = document.getElementById('next-testimonial');
+        let currentTestimonial = 0;
+        
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            testimonials[index].classList.add('active');
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+        
+        // Formulario de contacto
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aquí normalmente se enviaría el formulario a un servidor
+            // Como es una página estática, solo mostraremos un mensaje
+            
+            alert('¡Gracias por contactarnos! Te responderemos a la brevedad.');
+            contactForm.reset();
+        });
+        
+        // Efecto de aparición al hacer scroll
+        const revealOnScroll = () => {
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight - 100) {
+                    section.style.opacity = 1;
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Aplicar estilos iniciales para la animación
+        document.querySelectorAll('section:not(.hero)').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'all 0.8s ease';
+        });
+        
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Ejecutar al cargar la página
+    </script>
+</body>
+</html>
